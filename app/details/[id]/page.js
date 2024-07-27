@@ -4,6 +4,18 @@ import EventVenue from "@/components/details/EventVenue";
 
 import { getEventById } from "@/db/queries";
 
+export async function generateMetadata({params: {id}}) {
+  const eventInfo = await getEventById(id);
+
+  return {
+    title: `meetevent - ${eventInfo?.name}`,
+    description: eventInfo?.details,
+    openGraph: {
+      images: [eventInfo?.imageUrl]
+    }
+  }
+}
+
 const EventDetailsPage = async ({ params: { id } }) => {
   const eventInfo = await getEventById(id);
 
