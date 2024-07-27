@@ -1,6 +1,13 @@
-const PaymentForm = () => {
+"use client";
+
+import { useAuth } from "@/app/hooks/useAuth";
+import { addGoingEvent } from "@/app/actions";
+
+const PaymentForm = ({ eventId }) => {
+  const { auth } = useAuth();
+
   return (
-    <form>
+    <form action={() => addGoingEvent(eventId, auth)}>
       <div className="my-4 space-y-2">
         <label htmlFor="name" className="block">
           Name
@@ -8,6 +15,7 @@ const PaymentForm = () => {
         <input
           type="text"
           id="name"
+          value={auth?.name}
           className="w-full bg-[#27292F] border border-[#CCCCCC]/20 py-1 px-2 rounded-md"
         />
       </div>
@@ -19,6 +27,7 @@ const PaymentForm = () => {
         <input
           type="email"
           id="email"
+          value={auth?.email}
           className="w-full bg-[#27292F] border border-[#CCCCCC]/20 py-1 px-2 rounded-md"
         />
       </div>
